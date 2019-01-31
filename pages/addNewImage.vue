@@ -2,17 +2,20 @@
   <section class="container">
     <div>
       <app-logo/>
+      <spicts-header />
       <div class="links">
-        <div>
-          <a href="/">HOME</a>
-          <a href="/images">IMAGES</a>
-          <a href="/mosaicart">GALLERY</a>
+        <br>
+        <div>{{ message }}</div>
+        <div v-if="filesURL">
+          <div v-for="(image, index) in createChunk" :key="index">
+            <img :src="image[0]" height="300" width="300" />
+            <img v-if="image.length > 1" :src="image[1]" height="300" width="300" />
+            <img v-if="image.length > 2" :src="image[2]" height="300" width="300" />
+          </div>
         </div>
-      </div>
-      <div v-for="(url, index) in createChunk" :key="index">
-        <img :v-show="url[0]" :src="'https://s3-ap-northeast-1.amazonaws.com/spicts/'+ url[0]" height="300" width="300" >
-        <img :v-show="url[1]" :src="'https://s3-ap-northeast-1.amazonaws.com/spicts/'+ url[1]" height="300" width="300" >
-        <img :v-show="url[2]" :src="'https://s3-ap-northeast-1.amazonaws.com/spicts/'+ url[2]" height="300" width="300" >
+        
+        <input multiple="multiple" type="file" @change="uploadFiles"/>
+        <button :disabled="files.length === 0" @click="postSpictsImage">Submit</button>
       </div>
     </div>
   </section>
@@ -20,6 +23,7 @@
 
 <script>
 import AppLogo from '~/components/AppLogo.vue'
+import SpictsHeader from '~/components/header.vue'
 import Vue from "vue";
 import { mapState } from 'vuex'
 import { chunk } from 'lodash'
@@ -27,11 +31,13 @@ import { chunk } from 'lodash'
 export default {
   name: "ImageUpload",
   components: {
-    AppLogo
+    AppLogo,
+    SpictsHeader
   },
   data: () => {
     return {
       files: [],
+      filesURL: [],
       msg: "Vue Image Upload and Resize Demo",
       hasImage: false,
       image: null,
@@ -44,17 +50,30 @@ export default {
   },
   computed: {
     createChunk() {
-      return chunk(this.urls, 3)
+      return chunk(this.filesURL, 3)
+    },
+    message() {
+      return this.$store.state.spictsImage.message
     }
   },
   methods: {
-    setImage: function(output) {
-      this.hasImage = true;
-      this.image = output;
+    async uploadFiles (event) {
+      for (let i = 0, item; item = event.target.files[i]; i++) {
+        // save as fileURL
+        let reader = new FileReader
+        reader.readAsDataURL(item)
+        reader.onload = (item) => {
+          this.filesURL.push(item.target.result)
+        }
+        // save as file
+        this.files.push(item)
+      }
     },
     postSpictsImage() {
-      this.$store.dispatch('spictsImage/uploadSpictsImage', { file: this.image })
-    }
+      this.files.map(file => this.$store.dispatch('spictsImage/uploadSpictsPieceImage', { file }))
+      this.files = []
+      this.filesURL = []
+    },
   }
 }
 </script>

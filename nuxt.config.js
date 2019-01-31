@@ -42,6 +42,7 @@ module.exports = {
     baseURL: 'https://api.github.com',
     proxyHeaders: false,
     credentials: false
-  }
+  },
+  plugins: ['~/plugins/vueThinModal.js']
 }
 

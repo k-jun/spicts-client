@@ -2,22 +2,23 @@
   <section class="container">
     <div>
       <app-logo/>
-      <div class="links">
-        <div>
-          <a href="/">HOME</a>
-          <a href="/images">IMAGES</a>
-          <a href="/mosaicart">GALLERY</a>
-        </div>
-      </div>
+      <spicts-header />
+      <br>
+      <div>過去に作られたモザイクアート置き場です</div>
       <div>
-        <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt1.png' height="300" width="300" >
         <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt2.png' height="300" width="300" >
         <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt3.png' height="300" width="300" >
+        <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt4.png' height="300" width="300" >
       </div>
       <div>
-        <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt4.png' height="300" width="300" >
         <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt5.png' height="300" width="300" >
+        <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt1.png' height="300" width="300" >
         <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt6.png' height="300" width="300" >
+      </div>
+      <div>
+        <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt7.png' height="300" width="300" >
+        <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt8.png' height="300" width="300" >
+        <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt9.png' height="300" width="300" >
       </div>
     </div>
   </section>
@@ -25,6 +26,7 @@
 
 <script>
 import AppLogo from '~/components/AppLogo.vue'
+import SpictsHeader from '~/components/header.vue'
 import Vue from "vue";
 import { mapState } from 'vuex'
 import { chunk } from 'lodash'
@@ -32,7 +34,8 @@ import { chunk } from 'lodash'
 export default {
   name: "ImageUpload",
   components: {
-    AppLogo
+    AppLogo,
+    SpictsHeader
   },
   data: () => {
     return {

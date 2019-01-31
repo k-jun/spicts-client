@@ -1,19 +1,27 @@
 import axios from 'axios'
 
 export const state = () => ({
-  all: []
+  all: [],
+  message: '',
+  createdMosaicArtPath: ''
 })
 
 export const mutations = {
-  uploadSpictsImage (state, { Items }) {
-    state.all = Items.map(item => item.url.S)
+  getSpictsPieceImage (state, { Items }) {
+    state.all = Items.map(item => item.url.S).reverse()
+  },
+  uploadSpictsImageMessage (state, { message }) {
+    state.message = message
+  },
+  createMosaicArt(state, { path } ) {
+    state.createdMosaicArtPath = path
   }
 }
 
 export const actions = {
   async uploadSpictsPieceImage({ commit }, { file }) {
     if (!file) {
-      console.log('fileがありません')
+      commit('uploadSpictsImageMessage', { message: 'ファイルがありません' })
       return
     } 
     const response = await axios.get('https://api.spicts.net/s3_image_upload')
@@ -24,9 +32,15 @@ export const actions = {
       url: response.data.key,
       id: response.data.key
     })
+    commit('uploadSpictsImageMessage', { message: '画像をアップロードしました' })
   },
   async getSpictsPieceImage({ commit }) {
     const { data } = await axios.get('https://api.spicts.net/get_piece_image')
-    commit('uploadSpictsImage', data.data)
+    commit('getSpictsPieceImage', data.data)
+  },
+  async createMosaicArt({ commit }, { mainImagePath, pieceImagePaths }) {
+    const params = `?piece_image_paths=${pieceImagePaths.join(',')}&main_image_path=${mainImagePath}`
+    const { data } = await axios.post(`https://9h47rivt3j.execute-api.ap-northeast-1.amazonaws.com/default/spicts-lambda` + params)
+    commit('createMosaicArt', { path: data.path })
   }
 }
