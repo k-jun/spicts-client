@@ -1,10 +1,11 @@
 <template>
-  <section class="container">
+  <section class="main">
+    <spicts-header />
+
     <div>
-      <app-logo/>
-      <spicts-header />
+      <app-logo class="logo" />
       <div class="links">
-        <br>
+        <br />
         <div>{{ message }}</div>
         <div v-if="filesURL">
           <div v-for="(image, index) in createChunk" :key="index">
@@ -13,8 +14,8 @@
             <img v-if="image.length > 2" :src="image[2]" height="300" width="300" />
           </div>
         </div>
-        
-        <input multiple="multiple" type="file" @change="uploadFiles"/>
+
+        <input multiple="multiple" type="file" @change="uploadFiles" />
         <button :disabled="files.length === 0" @click="postSpictsImage">Submit</button>
       </div>
     </div>
@@ -22,11 +23,11 @@
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue'
-import SpictsHeader from '~/components/header.vue'
+import AppLogo from "~/components/AppLogo.vue";
+import SpictsHeader from "~/components/header.vue";
 import Vue from "vue";
-import { mapState } from 'vuex'
-import { chunk } from 'lodash'
+import { mapState } from "vuex";
+import { chunk } from "lodash";
 
 export default {
   name: "ImageUpload",
@@ -42,43 +43,45 @@ export default {
       hasImage: false,
       image: null,
       urls: []
-    }
+    };
   },
   async created() {
-    await this.$store.dispatch('spictsImage/getSpictsPieceImage')
-    this.urls = this.$store.state.spictsImage.all
+    await this.$store.dispatch("spictsImage/getSpictsPieceImage");
+    this.urls = this.$store.state.spictsImage.all;
   },
   computed: {
     createChunk() {
-      return chunk(this.filesURL, 3)
+      return chunk(this.filesURL, 3);
     },
     message() {
-      return this.$store.state.spictsImage.message
+      return this.$store.state.spictsImage.message;
     }
   },
   methods: {
-    async uploadFiles (event) {
-      for (let i = 0, item; item = event.target.files[i]; i++) {
+    async uploadFiles(event) {
+      for (let i = 0, item; (item = event.target.files[i]); i++) {
         // save as fileURL
-        let reader = new FileReader
-        reader.readAsDataURL(item)
-        reader.onload = (item) => {
-          this.filesURL.push(item.target.result)
-        }
+        let reader = new FileReader();
+        reader.readAsDataURL(item);
+        reader.onload = item => {
+          this.filesURL.push(item.target.result);
+        };
         // save as file
-        this.files.push(item)
+        this.files.push(item);
       }
     },
     postSpictsImage() {
-      this.files.map(file => this.$store.dispatch('spictsImage/uploadSpictsPieceImage', { file }))
-      this.files = []
-      this.filesURL = []
-    },
+      this.files.map(file =>
+        this.$store.dispatch("spictsImage/uploadSpictsPieceImage", { file })
+      );
+      this.files = [];
+      this.filesURL = [];
+    }
   }
-}
+};
 </script>
 
-<style>
+<style scoped>
 #fileInput {
   display: none;
 }
@@ -92,7 +95,8 @@ export default {
 }
 
 .title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
   display: block;
   font-weight: 300;
   font-size: 100px;
@@ -110,6 +114,21 @@ export default {
 
 .links {
   padding-top: 15px;
+}
+
+.main {
+  width: inherit;
+  margin: 0;
+  /* min-height: 100vh; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.logo {
+  margin: 50px;
 }
 </style>
 

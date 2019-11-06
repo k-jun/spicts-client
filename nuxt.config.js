@@ -24,7 +24,7 @@ module.exports = {
     /*
     ** Run ESLint on save
     */
-    extend (config, { isDev, isClient }) {
+    extend(config, { isDev, isClient }) {
       if (isDev && isClient) {
         config.module.rules.push({
           enforce: 'pre',
@@ -43,6 +43,9 @@ module.exports = {
     proxyHeaders: false,
     credentials: false
   },
-  plugins: ['~/plugins/vueThinModal.js']
+  plugins: ['~/plugins/vueThinModal.js'],
+  modules: [
+    'nuxt-buefy',
+  ]
 }
 

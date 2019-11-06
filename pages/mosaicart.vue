@@ -1,35 +1,34 @@
 <template>
-  <section class="container">
+  <section class="main">
+    <spicts-header />
     <div>
-      <app-logo/>
-      <spicts-header />
-      <br>
       <div>過去に作られたモザイクアート置き場です</div>
       <div>
-        <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt2.png' height="300" width="300" >
-        <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt3.png' height="300" width="300" >
-        <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt4.png' height="300" width="300" >
+        <img src="~/assets/logo.png" height="300" width="300" />
+        <img src="~/assets/logo.png" height="300" width="300" />
+        <img src="~/assets/logo.png" height="300" width="300" />
       </div>
       <div>
-        <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt5.png' height="300" width="300" >
-        <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt1.png' height="300" width="300" >
-        <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt6.png' height="300" width="300" >
+        <img src="~/assets/logo.png" height="300" width="300" />
+        <img src="~/assets/logo.png" height="300" width="300" />
+        <img src="~/assets/logo.png" height="300" width="300" />
+        <img src="~/assets/logo.png" height="300" width="300" />
       </div>
       <div>
-        <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt7.png' height="300" width="300" >
-        <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt8.png' height="300" width="300" >
-        <img src='https://s3-ap-northeast-1.amazonaws.com/spicts/mosaic_art/spictsMosaicArt9.png' height="300" width="300" >
+        <img src="~/assets/logo.png" height="300" width="300" />
+        <img src="~/assets/logo.png" height="300" width="300" />
+        <img src="~/assets/logo.png" height="300" width="300" />
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue'
-import SpictsHeader from '~/components/header.vue'
+import AppLogo from "~/components/AppLogo.vue";
+import SpictsHeader from "~/components/header.vue";
 import Vue from "vue";
-import { mapState } from 'vuex'
-import { chunk } from 'lodash'
+import { mapState } from "vuex";
+import { chunk } from "lodash";
 
 export default {
   name: "ImageUpload",
@@ -44,15 +43,15 @@ export default {
       hasImage: false,
       image: null,
       urls: []
-    }
+    };
   },
   async created() {
-    await this.$store.dispatch('spictsImage/getSpictsPieceImage')
-    this.urls = this.$store.state.spictsImage.all
+    await this.$store.dispatch("spictsImage/getSpictsPieceImage");
+    this.urls = this.$store.state.spictsImage.all;
   },
   computed: {
     createChunk() {
-      return chunk(this.urls, 3)
+      return chunk(this.urls, 3);
     }
   },
   methods: {
@@ -61,13 +60,15 @@ export default {
       this.image = output;
     },
     postSpictsImage() {
-      this.$store.dispatch('spictsImage/uploadSpictsImage', { file: this.image })
+      this.$store.dispatch("spictsImage/uploadSpictsImage", {
+        file: this.image
+      });
     }
   }
-}
+};
 </script>
 
-<style>
+<style scoped>
 #fileInput {
   display: none;
 }
@@ -81,7 +82,8 @@ export default {
 }
 
 .title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
+  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
+    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
   display: block;
   font-weight: 300;
   font-size: 100px;
@@ -99,6 +101,21 @@ export default {
 
 .links {
   padding-top: 15px;
+}
+
+.main {
+  width: inherit;
+  margin: 0;
+  /* min-height: 100vh; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.logo {
+  margin: 50px;
 }
 </style>
 
