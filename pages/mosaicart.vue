@@ -2,7 +2,13 @@
   <section class="main">
     <spicts-header />
     <div>
-      <div>過去に作られたモザイクアート置き場です</div>
+      <app-logo class="logo" />
+      <div class="content">
+        <h3>ギャラリー</h3>
+        <p>過去に作成されたモザイクアートです</p>
+        <p>モザイク”アート”ですので、他の人が作成したものも楽しんではいかがでしょうか？</p>
+        <p>また、モザイクアートは1日に一度自動で作成され更新されていきます。</p>
+      </div>
       <div>
         <img src="~/assets/logo.png" height="300" width="300" />
         <img src="~/assets/logo.png" height="300" width="300" />
@@ -69,40 +75,6 @@ export default {
 </script>
 
 <style scoped>
-#fileInput {
-  display: none;
-}
-
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-
 .main {
   width: inherit;
   margin: 0;

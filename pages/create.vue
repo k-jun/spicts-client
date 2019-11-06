@@ -2,20 +2,22 @@
   <section class="main">
     <spicts-header />
     <div>
-      <!-- <app-logo class="logo" /> -->
-      <p>最初に選択した画像がモザイクアートのメインの画像となります。</p>
-      <p>選んだ画像が49枚未満の場合には自動的に画像が追加されます。</p>
-      <p>アップロードされた全ての画像は24:00の段階で削除されます。</p>
+      <app-logo class="logo" />
 
-      <div class="links">
-        <a href="/addNewImage">画像を追加する</a>
+      <div class="content">
+        <h3>モザイクアート作成</h3>
+        <p>最初に選んだ画像が背景となるメイン画像になります。注意して選びましょう。また、画像は49(7×7)枚必要です</p>
+        <p>もし、画像が49枚以下の場合にはSpictsが自動的に画像を選択してくれます。親切ですね。</p>
+        <p>アップロードされた全ての画像は24:00をすぎた時点で自動的に削除されます。注意してください。</p>
       </div>
 
-      <br />
-      <button
+      <b-button>
+        <a href="/addNewImage">画像を追加する</a>
+      </b-button>
+      <b-button
         :disabled="selectedImagePaths.length === 0"
         @click="open"
-      >{{selectedImagePaths.length === 0 ? '画像が選択されていません' : '画像を確認する'}}</button>
+      >{{selectedImagePaths.length === 0 ? '画像が選択されていません' : '選んだ画像を確認する'}}</b-button>
 
       <div v-for="(urlBlock, index) in createChunk" :key="index">
         <img
@@ -159,53 +161,9 @@ export default {
 </script>
 
 <style scoped>
-/* #fileInput {
-  display: none;
-}
-
-.selected {
-  opacity: 0.5;
-}
-
-.confirm_modal {
-  width: 80%;
-  text-align: center;
-}
-
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-/* display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-} */
-
 .main {
   width: inherit;
   margin: 0;
-  /* min-height: 100vh; */
   display: flex;
   flex-direction: column;
   justify-content: center;

@@ -4,6 +4,12 @@
 
     <div>
       <app-logo class="logo" />
+      <div class="content">
+        <h3>画像をアップロード</h3>
+        <p>フィルターなどは存在しませんが、不適切な画像のアップロードは控えてください。</p>
+        <p>全ての利用者のみなさんが良識ある、人だと信じています。</p>
+        <p>アップロードされた全ての画像は24:00をすぎた時点で自動的に削除されます。注意してください。</p>
+      </div>
       <div class="links">
         <br />
         <div>{{ message }}</div>
@@ -16,7 +22,8 @@
         </div>
 
         <input multiple="multiple" type="file" @change="uploadFiles" />
-        <button :disabled="files.length === 0" @click="postSpictsImage">Submit</button>
+
+        <b-button :disabled="files.length === 0" @click="postSpictsImage">Upload</b-button>
       </div>
     </div>
   </section>
@@ -82,40 +89,6 @@ export default {
 </script>
 
 <style scoped>
-#fileInput {
-  display: none;
-}
-
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-
 .main {
   width: inherit;
   margin: 0;
